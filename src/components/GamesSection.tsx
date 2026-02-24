@@ -1,11 +1,12 @@
 import { ArrowRight, Star, Clock, Flame, TrendingUp } from "lucide-react";
 
-import sportsImg from "@/assets/sports-card.jpg";
 import casinoImg from "@/assets/casino-card.jpg";
-import politicsImg from "@/assets/politics-card.jpg";
 import coinflipImg from "@/assets/coinflip-card.jpg";
 import diceImg from "@/assets/dice-card.jpg";
 import wheelImg from "@/assets/wheel-card.jpg";
+import hiloImg from "@/assets/hilo-card.png";
+import minesImg from "@/assets/mines-card.png";
+import rpsImg from "@/assets/rps-card.png";
 
 interface GameRowProps {
   icon: React.ReactNode;
@@ -41,11 +42,12 @@ const GameRow = ({ icon, title, subtitle, games }: GameRowProps) => (
 );
 
 const allGames = [
-  { image: sportsImg, title: "Sports" },
-  { image: casinoImg, title: "Roulette" },
-  { image: politicsImg, title: "Politics" },
-  { image: coinflipImg, title: "Coin Flip" },
   { image: diceImg, title: "Dice" },
+  { image: coinflipImg, title: "Flip" },
+  { image: hiloImg, title: "Hilo" },
+  { image: minesImg, title: "Mines" },
+  { image: casinoImg, title: "Roulette" },
+  { image: rpsImg, title: "Rock Paper Scissors" },
   { image: wheelImg, title: "Wheel" },
 ];
 
@@ -75,7 +77,7 @@ const GamesSection = () => {
           icon={<TrendingUp className="w-5 h-5 text-primary" />}
           title="Trending"
           subtitle="2 games trending now"
-          games={allGames.slice(2, 5)}
+          games={allGames.slice(3, 7)}
         />
       </div>
     </section>
