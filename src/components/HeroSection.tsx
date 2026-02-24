@@ -65,9 +65,9 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <a href="#" className="text-muted-foreground text-sm hover:text-foreground transition-colors underline">
-          Browse collections
-        </a>
+        <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">
+          <span className="gradient-text">Browse Collections</span>
+        </h2>
       </div>
     </section>
   );
