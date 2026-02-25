@@ -47,7 +47,7 @@ const Navbar = ({ onMenuToggle }: NavbarProps) => {
         </div>
 
         {/* Center: Logo */}
-        <img src={bullseyeLogo} alt="Bullseye" className="h-12 object-contain" />
+        <img src={bullseyeLogo} alt="Bullseye" className="h-16 w-auto object-contain" />
 
         {/* Right: User + Dropdown */}
         <div className="relative" ref={dropdownRef}>
