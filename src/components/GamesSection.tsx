@@ -33,7 +33,7 @@ const GameRow = ({ icon, title, subtitle, games }: GameRowProps) => (
     </div>
     <div className="flex gap-3 overflow-x-auto pb-1">
       {games.map((game) => (
-        <div key={game.title} className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-border cursor-pointer transition-transform duration-200 hover:scale-110">
+        <div key={game.title} className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-border cursor-pointer transition-transform duration-300 hover:scale-150 hover:z-10">
           <img src={game.image} alt={game.title} className="w-full h-full object-cover" />
         </div>
       ))}
