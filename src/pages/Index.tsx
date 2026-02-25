@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import HeroSection from "@/components/HeroSection";
 import GamesSection from "@/components/GamesSection";
-import bgImage from "@/assets/background-2.png";
+import bgImage from "@/assets/background-3.png";
 
 const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
