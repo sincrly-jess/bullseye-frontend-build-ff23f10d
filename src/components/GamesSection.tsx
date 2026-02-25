@@ -53,7 +53,7 @@ const allGames = [
 
 const GamesSection = () => {
   return (
-    <section className="py-12 bg-background">
+    <section className="py-12">
       <div className="container mx-auto px-4 max-w-2xl">
         <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight mb-6 text-center">
           <span className="gradient-text">Browse Collections</span>
