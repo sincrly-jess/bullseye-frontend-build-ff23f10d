@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import bullseyeLogo from "@/assets/bullseye-logo.png";
-import defaultPfp from "@/assets/default-pfp.png";
+import bullseyeLogo from "../assets/bullseye-logo.png";
+import defaultPfp from "../assets/default-pfp.png";
 import { Menu, Bell } from "lucide-react";
 
 interface NavbarProps {
