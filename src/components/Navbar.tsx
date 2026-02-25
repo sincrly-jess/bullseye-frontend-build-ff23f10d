@@ -8,11 +8,11 @@ interface NavbarProps {
 }
 
 const profileMenuItems = [
-  { label: "View Profile", href: "#" },
-  { label: "Friends", href: "#" },
-  { label: "Rewards", href: "#" },
-  { label: "Chat", href: "#" },
-  { label: "Stats", href: "#" },
+  { label: "View Profile", href: "/profile" },
+  { label: "Friends", href: "/friends" },
+  { label: "Rewards", href: "/rewards" },
+  { label: "Chat", href: "/chat" },
+  { label: "Stats", href: "/stats" },
   { label: "Logout", href: "#" },
 ];
 
