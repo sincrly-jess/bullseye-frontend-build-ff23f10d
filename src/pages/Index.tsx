@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import GamesSection from "@/components/GamesSection";
-import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -9,7 +8,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <GamesSection />
-      <Footer />
+      
     </div>
   );
 };
