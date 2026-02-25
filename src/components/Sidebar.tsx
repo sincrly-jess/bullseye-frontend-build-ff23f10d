@@ -10,7 +10,6 @@ const categories = [
   { name: "Bullseye Games", href: "#" },
   { name: "Casino", href: "#" },
   { name: "Markets", href: "#" },
-  { name: "Category #4", href: "#" },
 ];
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
