@@ -7,9 +7,9 @@ interface SidebarProps {
 }
 
 const categories = [
-  { name: "Bullseye Games", href: "#" },
-  { name: "Casino", href: "#" },
-  { name: "Markets", href: "#" },
+  { name: "Bullseye Games", href: "/categories/bullseye-games" },
+  { name: "Casino", href: "/categories/casino" },
+  { name: "Markets", href: "/categories/markets" },
 ];
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         }`}
       >
         <nav className="p-4 space-y-1">
-          <a href="#" className="flex items-center gap-3 px-3 py-2 text-foreground hover:bg-muted rounded-lg transition-colors">
+          <a href="/" className="flex items-center gap-3 px-3 py-2 text-foreground hover:bg-muted rounded-lg transition-colors">
             <Home className="w-4 h-4" />
             Home
           </a>
@@ -67,12 +67,12 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             )}
           </div>
 
-          <a href="#" className="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
+          <a href="/leaderboard" className="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
             <Trophy className="w-4 h-4" />
             Leaderboard
           </a>
 
-          <a href="#" className="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
+          <a href="/chat" className="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
             <MessageCircle className="w-4 h-4" />
             Chat
           </a>
