@@ -10,7 +10,7 @@ const Index = () => {
 
   return (
     <div
-      className="min-h-screen bg-background"
+      className="min-h-screen"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
