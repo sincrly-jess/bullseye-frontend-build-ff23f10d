@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { ArrowRight, Star, Clock, Flame, TrendingUp, X } from "lucide-react";
 
-import casinoImg from "@/assets/casino-card.jpg";
-import coinflipImg from "@/assets/coinflip-card.jpg";
-import diceImg from "@/assets/dice-card.jpg";
-import wheelImg from "@/assets/wheel-card.jpg";
-import hiloImg from "@/assets/hilo-card.png";
-import minesImg from "@/assets/mines-card.png";
-import rpsImg from "@/assets/rps-card.png";
+import casinoImg from "../assets/casino-card.jpg";
+import coinflipImg from "../assets/coinflip-card.jpg";
+import diceImg from "../assets/dice-card.jpg";
+import wheelImg from "../assets/wheel-card.jpg";
+import hiloImg from "../assets/hilo-card.png";
+import minesImg from "../assets/mines-card.png";
+import rpsImg from "../assets/rps-card.png";
 
 interface Game {
   image: string;
