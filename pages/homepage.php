@@ -315,28 +315,7 @@ $collections = [
     </div>
 </section>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay"></div>
-<div class="modal" id="modal">
-    <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-grid" id="modalGrid"></div>
-</div>
-
 <script>
-    // Games data
-    const allGames = [
-        { image: 'images/dice-card.jpg', title: 'Dice' },
-        { image: 'images/coinflip-card.jpg', title: 'Flip' },
-        { image: 'images/hilo-card.png', title: 'Hilo' },
-        { image: 'images/mines-card.png', title: 'Mines' },
-        { image: 'images/casino-card.jpg', title: 'Roulette' },
-        { image: 'images/rps-card.png', title: 'Rock Paper Scissors' },
-        { image: 'images/wheel-card.jpg', title: 'Wheel' }
-    ];
-
     // Profile dropdown
     const profileBtn = document.getElementById('profileBtn');
     const profileDropdown = document.getElementById('profileDropdown');
@@ -369,27 +348,6 @@ $collections = [
         catMenu.style.display = open ? 'none' : 'block';
         catArrow.innerHTML = open ? '&#9654;' : '&#9660;';
     });
-
-    // Modal
-    function openModal(title, indices) {
-        document.getElementById('modalTitle').textContent = title;
-        const grid = document.getElementById('modalGrid');
-        grid.innerHTML = '';
-        indices.forEach(i => {
-            const game = allGames[i];
-            const card = document.createElement('div');
-            card.className = 'modal-card';
-            card.innerHTML = '<img src="' + game.image + '" alt="' + game.title + '"><span>' + game.title + '</span>';
-            grid.appendChild(card);
-        });
-        document.getElementById('modalOverlay').classList.add('open');
-        document.getElementById('modal').classList.add('open');
-    }
-    function closeModal() {
-        document.getElementById('modalOverlay').classList.remove('open');
-        document.getElementById('modal').classList.remove('open');
-    }
-    document.getElementById('modalOverlay').addEventListener('click', closeModal);
 </script>
 
 </body>
