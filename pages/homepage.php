@@ -23,6 +23,21 @@ if (isset($_SESSION['user_id'])) {
 
 $avatar_url = "https://ui-avatars.com/api/?name=" . urlencode($user_data['username']) . "&background=random&color=fff";
 
+// Fetch wallet balance from DB (fallback to 0)
+$wallet_balance = 0;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT balance FROM users WHERE id = ? LIMIT 1");
+    if ($stmt) {
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $wallet_balance = $row['balance'] ?? 0;
+        }
+        $stmt->close();
+    }
+}
+
 // Collections data
 $collections = [
     [
@@ -135,6 +150,13 @@ $collections = [
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 12px;
         }
         .profile-dropdown.open { display: flex; flex-direction: column; gap: 8px; }
+        .wallet-display {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px; border-radius: 8px; background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3); font-weight: 700; font-size: 15px;
+            color: #ffd700;
+        }
+        .wallet-display .coin-icon { font-size: 18px; }
         .profile-dropdown a {
             display: block; text-align: center; padding: 10px; border-radius: 8px;
             background: var(--primary); color: var(--primary-fg); font-weight: 600;
@@ -253,6 +275,10 @@ $collections = [
                 <img src="<?php echo $avatar_url; ?>" alt="Profile" class="nav-pfp">
             </button>
             <div class="profile-dropdown" id="profileDropdown">
+                <div class="wallet-display">
+                    <span class="coin-icon">🪙</span>
+                    <span><?php echo number_format($wallet_balance); ?> coins</span>
+                </div>
                 <a href="?page=profile_page">View Profile</a>
                 <a href="#">Friends</a>
                 <a href="#">Rewards</a>
