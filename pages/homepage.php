@@ -150,6 +150,13 @@ $collections = [
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 12px;
         }
         .profile-dropdown.open { display: flex; flex-direction: column; gap: 8px; }
+        .wallet-display {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px; border-radius: 8px; background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3); font-weight: 700; font-size: 15px;
+            color: #ffd700;
+        }
+        .wallet-display .coin-icon { font-size: 18px; }
         .profile-dropdown a {
             display: block; text-align: center; padding: 10px; border-radius: 8px;
             background: var(--primary); color: var(--primary-fg); font-weight: 600;
