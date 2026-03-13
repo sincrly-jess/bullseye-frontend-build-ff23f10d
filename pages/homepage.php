@@ -275,6 +275,10 @@ $collections = [
                 <img src="<?php echo $avatar_url; ?>" alt="Profile" class="nav-pfp">
             </button>
             <div class="profile-dropdown" id="profileDropdown">
+                <div class="wallet-display">
+                    <span class="coin-icon">🪙</span>
+                    <span><?php echo number_format($wallet_balance); ?> coins</span>
+                </div>
                 <a href="?page=profile_page">View Profile</a>
                 <a href="#">Friends</a>
                 <a href="#">Rewards</a>
