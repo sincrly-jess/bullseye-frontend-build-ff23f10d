@@ -291,81 +291,27 @@ $collections = [
     <div class="games-container">
         <h2 class="games-heading">Browse Collections</h2>
 
+        <?php foreach ($collections as $collection): ?>
         <div class="game-row">
             <div class="game-row-header">
                 <div class="game-row-info">
-                    <div class="game-row-icon">&#11088;</div>
+                    <div class="game-row-icon"><?php echo $collection['icon']; ?></div>
                     <div>
-                        <div class="game-row-title">Favorited Games</div>
-                        <div class="game-row-subtitle">4 games</div>
+                        <div class="game-row-title"><?php echo $collection['title']; ?></div>
+                        <div class="game-row-subtitle"><?php echo $collection['subtitle']; ?></div>
                     </div>
                 </div>
-                <button class="game-row-arrow" onclick="openModal('Favorited Games', [0,1,2,3])">&#10132;</button>
+                <a href="<?php echo $collection['link']; ?>" class="game-row-arrow">&#10132;</a>
             </div>
             <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/dice-card.jpg" alt="Dice"></div>
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
+                <?php foreach ($collection['games'] as $game): ?>
+                <a href="?page=<?php echo $game['page']; ?>" class="game-thumb">
+                    <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>">
+                </a>
+                <?php endforeach; ?>
             </div>
         </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128336;</div>
-                    <div>
-                        <div class="game-row-title">Frequently Played</div>
-                        <div class="game-row-subtitle">889 total plays</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Frequently Played', [1,2,3,4])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-                <div class="game-thumb"><img src="images/casino-card.jpg" alt="Roulette"></div>
-            </div>
-        </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128293;</div>
-                    <div>
-                        <div class="game-row-title">Popular Games</div>
-                        <div class="game-row-subtitle">Top rated by players</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Popular Games', [0,1,2,3])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/dice-card.jpg" alt="Dice"></div>
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-            </div>
-        </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128200;</div>
-                    <div>
-                        <div class="game-row-title">Trending</div>
-                        <div class="game-row-subtitle">2 games trending now</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Trending', [3,4,5,6])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-                <div class="game-thumb"><img src="images/casino-card.jpg" alt="Roulette"></div>
-                <div class="game-thumb"><img src="images/rps-card.png" alt="RPS"></div>
-                <div class="game-thumb"><img src="images/wheel-card.jpg" alt="Wheel"></div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </section>
 
