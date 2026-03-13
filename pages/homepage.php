@@ -23,6 +23,21 @@ if (isset($_SESSION['user_id'])) {
 
 $avatar_url = "https://ui-avatars.com/api/?name=" . urlencode($user_data['username']) . "&background=random&color=fff";
 
+// Fetch wallet balance from DB (fallback to 0)
+$wallet_balance = 0;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT balance FROM users WHERE id = ? LIMIT 1");
+    if ($stmt) {
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $wallet_balance = $row['balance'] ?? 0;
+        }
+        $stmt->close();
+    }
+}
+
 // Collections data
 $collections = [
     [
