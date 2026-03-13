@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 
 $page = $_GET['page'] ?? 'homepage';
 
-$allowed_pages = ['log_in', 'create_account', 'logged_in_page', 'profile_page', 'homepage', 'favorites', 'freq_played', 'pop_games', 'trending'];
+$allowed_pages = ['log_in', 'create_account', 'logged_in_page', 'profile_page', 'homepage', 'favorites', 'freq_played', 'pop_games', 'trending', 'coin_flip', 'dice', 'wheel', 'roulette', 'mines', 'rps', 'blackjack'];
 
 if (!in_array($page, $allowed_pages)) {
     $page = 'homepage';
