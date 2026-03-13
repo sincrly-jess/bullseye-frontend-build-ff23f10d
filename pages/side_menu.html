@@ -1,0 +1,42 @@
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="sidebar" id="sidebar">
+    <div class="logo">BULLSEYE</div>
+    <a href="?page=logged_in_page" class="menu-item"><i class="fa-solid fa-house"></i>&nbsp; Home</a>
+    <div class="menu-item expandable" id="catToggle"><i class="fa-solid fa-list"></i>&nbsp; Categories</div>
+    <div class="submenu" id="catSubmenu">
+        <a href="#">Bullseye Games</a>
+        <a href="#">Casino</a>
+        <a href="#">Markets</a>
+    </div>
+    <a href="#" class="menu-item"><i class="fa-solid fa-trophy"></i>&nbsp; Leaderboard</a>
+    <a href="#" class="menu-item"><i class="fa-solid fa-comment"></i>&nbsp; Chat</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                backdrop.classList.toggle('show');
+                document.body.classList.toggle('sidebar-open');
+            });
+        }
+
+        backdrop.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('show');
+            document.body.classList.remove('sidebar-open');
+        });
+
+        const catToggle = document.getElementById('catToggle');
+        const catSubmenu = document.getElementById('catSubmenu');
+        catToggle.addEventListener('click', () => {
+            catToggle.classList.toggle('active');
+            catSubmenu.classList.toggle('show');
+        });
+    });
+</script>
