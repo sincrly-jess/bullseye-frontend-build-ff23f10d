@@ -249,16 +249,16 @@ $collections = [
         <img src="images/bullseye-logo.png" alt="Bullseye" class="nav-logo">
         <div class="nav-right">
             <button class="nav-user" id="profileBtn">
-                <span class="nav-username">testu</span>
-                <img src="images/default-pfp.png" alt="Profile" class="nav-pfp">
+                <span class="nav-username"><?php echo htmlspecialchars($user_data['username']); ?></span>
+                <img src="<?php echo $avatar_url; ?>" alt="Profile" class="nav-pfp">
             </button>
             <div class="profile-dropdown" id="profileDropdown">
-                <a href="index.php?page=profile_page">View Profile</a>
+                <a href="?page=profile_page">View Profile</a>
                 <a href="#">Friends</a>
                 <a href="#">Rewards</a>
                 <a href="#">Chat</a>
                 <a href="#">Stats</a>
-                <a href="index.php?page=log_in">Logout</a>
+                <a href="?page=log_in">Logout</a>
             </div>
         </div>
     </div>
