@@ -1,3 +1,71 @@
+<?php
+session_start();
+require __DIR__ . "/../db.php";
+
+// User Data
+$user_data = [
+    'username' => $_SESSION['username'] ?? 'Guest',
+];
+
+// Fetch real username from database
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT username FROM users WHERE id = ? LIMIT 1");
+    if ($stmt) {
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $user_data['username'] = $row['username'];
+        }
+        $stmt->close();
+    }
+}
+
+$avatar_url = "https://ui-avatars.com/api/?name=" . urlencode($user_data['username']) . "&background=random&color=fff";
+
+// Collections data
+$collections = [
+    [
+        'icon' => '⭐', 'title' => 'Favorited Games', 'subtitle' => '4 games',
+        'link' => '?page=favorites',
+        'games' => [
+            ['image' => 'images/coinflip-card.jpg', 'name' => 'Flip', 'page' => 'coin_flip'],
+            ['image' => 'images/dice-card.jpg', 'name' => 'Dice', 'page' => 'dice'],
+            ['image' => 'images/wheel-card.jpg', 'name' => 'Wheel', 'page' => 'wheel'],
+            ['image' => 'images/casino-card.jpg', 'name' => 'Roulette', 'page' => 'roulette'],
+        ]
+    ],
+    [
+        'icon' => '🕐', 'title' => 'Frequently Played', 'subtitle' => '889 total plays',
+        'link' => '?page=freq_played',
+        'games' => [
+            ['image' => 'images/wheel-card.jpg', 'name' => 'Wheel', 'page' => 'wheel'],
+            ['image' => 'images/mines-card.png', 'name' => 'Mines', 'page' => 'mines'],
+            ['image' => 'images/rps-card.png', 'name' => 'RPS', 'page' => 'rps'],
+        ]
+    ],
+    [
+        'icon' => '🔥', 'title' => 'Popular Games', 'subtitle' => 'Top rated by players',
+        'link' => '?page=pop_games',
+        'games' => [
+            ['image' => 'images/dice-card.jpg', 'name' => 'Dice', 'page' => 'dice'],
+            ['image' => 'images/coinflip-card.jpg', 'name' => 'Flip', 'page' => 'coin_flip'],
+            ['image' => 'images/hilo-card.png', 'name' => 'Hilo', 'page' => '#'],
+            ['image' => 'images/mines-card.png', 'name' => 'Mines', 'page' => 'mines'],
+        ]
+    ],
+    [
+        'icon' => '📈', 'title' => 'Trending', 'subtitle' => '2 games trending now',
+        'link' => '?page=trending',
+        'games' => [
+            ['image' => 'images/mines-card.png', 'name' => 'Mines', 'page' => 'mines'],
+            ['image' => 'images/casino-card.jpg', 'name' => 'Roulette', 'page' => 'roulette'],
+            ['image' => 'images/rps-card.png', 'name' => 'RPS', 'page' => 'rps'],
+            ['image' => 'images/wheel-card.jpg', 'name' => 'Wheel', 'page' => 'wheel'],
+        ]
+    ]
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +73,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bullseye</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -180,16 +249,16 @@
         <img src="images/bullseye-logo.png" alt="Bullseye" class="nav-logo">
         <div class="nav-right">
             <button class="nav-user" id="profileBtn">
-                <span class="nav-username">testu</span>
-                <img src="images/default-pfp.png" alt="Profile" class="nav-pfp">
+                <span class="nav-username"><?php echo htmlspecialchars($user_data['username']); ?></span>
+                <img src="<?php echo $avatar_url; ?>" alt="Profile" class="nav-pfp">
             </button>
             <div class="profile-dropdown" id="profileDropdown">
-                <a href="index.php?page=profile_page">View Profile</a>
+                <a href="?page=profile_page">View Profile</a>
                 <a href="#">Friends</a>
                 <a href="#">Rewards</a>
                 <a href="#">Chat</a>
                 <a href="#">Stats</a>
-                <a href="index.php?page=log_in">Logout</a>
+                <a href="?page=log_in">Logout</a>
             </div>
         </div>
     </div>
@@ -198,7 +267,7 @@
 <!-- SIDEBAR -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <aside class="sidebar" id="sidebar">
-    <a href="index.php?page=homepage">&#127968; Home</a>
+    <a href="?page=homepage">&#127968; Home</a>
     <button id="catToggle">&#9783; Categories <span id="catArrow" style="margin-left:auto;">&#9654;</span></button>
     <div class="sub-menu" id="catMenu" style="display:none;">
         <a href="#">Bullseye Games</a>
@@ -222,106 +291,31 @@
     <div class="games-container">
         <h2 class="games-heading">Browse Collections</h2>
 
+        <?php foreach ($collections as $collection): ?>
         <div class="game-row">
             <div class="game-row-header">
                 <div class="game-row-info">
-                    <div class="game-row-icon">&#11088;</div>
+                    <div class="game-row-icon"><?php echo $collection['icon']; ?></div>
                     <div>
-                        <div class="game-row-title">Favorited Games</div>
-                        <div class="game-row-subtitle">4 games</div>
+                        <div class="game-row-title"><?php echo $collection['title']; ?></div>
+                        <div class="game-row-subtitle"><?php echo $collection['subtitle']; ?></div>
                     </div>
                 </div>
-                <button class="game-row-arrow" onclick="openModal('Favorited Games', [0,1,2,3])">&#10132;</button>
+                <a href="<?php echo $collection['link']; ?>" class="game-row-arrow">&#10132;</a>
             </div>
             <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/dice-card.jpg" alt="Dice"></div>
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
+                <?php foreach ($collection['games'] as $game): ?>
+                <a href="?page=<?php echo $game['page']; ?>" class="game-thumb">
+                    <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>">
+                </a>
+                <?php endforeach; ?>
             </div>
         </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128336;</div>
-                    <div>
-                        <div class="game-row-title">Frequently Played</div>
-                        <div class="game-row-subtitle">889 total plays</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Frequently Played', [1,2,3,4])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-                <div class="game-thumb"><img src="images/casino-card.jpg" alt="Roulette"></div>
-            </div>
-        </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128293;</div>
-                    <div>
-                        <div class="game-row-title">Popular Games</div>
-                        <div class="game-row-subtitle">Top rated by players</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Popular Games', [0,1,2,3])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/dice-card.jpg" alt="Dice"></div>
-                <div class="game-thumb"><img src="images/coinflip-card.jpg" alt="Flip"></div>
-                <div class="game-thumb"><img src="images/hilo-card.png" alt="Hilo"></div>
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-            </div>
-        </div>
-
-        <div class="game-row">
-            <div class="game-row-header">
-                <div class="game-row-info">
-                    <div class="game-row-icon">&#128200;</div>
-                    <div>
-                        <div class="game-row-title">Trending</div>
-                        <div class="game-row-subtitle">2 games trending now</div>
-                    </div>
-                </div>
-                <button class="game-row-arrow" onclick="openModal('Trending', [3,4,5,6])">&#10132;</button>
-            </div>
-            <div class="game-thumbs">
-                <div class="game-thumb"><img src="images/mines-card.png" alt="Mines"></div>
-                <div class="game-thumb"><img src="images/casino-card.jpg" alt="Roulette"></div>
-                <div class="game-thumb"><img src="images/rps-card.png" alt="RPS"></div>
-                <div class="game-thumb"><img src="images/wheel-card.jpg" alt="Wheel"></div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </section>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay"></div>
-<div class="modal" id="modal">
-    <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-grid" id="modalGrid"></div>
-</div>
-
 <script>
-    // Games data
-    const allGames = [
-        { image: 'images/dice-card.jpg', title: 'Dice' },
-        { image: 'images/coinflip-card.jpg', title: 'Flip' },
-        { image: 'images/hilo-card.png', title: 'Hilo' },
-        { image: 'images/mines-card.png', title: 'Mines' },
-        { image: 'images/casino-card.jpg', title: 'Roulette' },
-        { image: 'images/rps-card.png', title: 'Rock Paper Scissors' },
-        { image: 'images/wheel-card.jpg', title: 'Wheel' }
-    ];
-
     // Profile dropdown
     const profileBtn = document.getElementById('profileBtn');
     const profileDropdown = document.getElementById('profileDropdown');
@@ -354,27 +348,6 @@
         catMenu.style.display = open ? 'none' : 'block';
         catArrow.innerHTML = open ? '&#9654;' : '&#9660;';
     });
-
-    // Modal
-    function openModal(title, indices) {
-        document.getElementById('modalTitle').textContent = title;
-        const grid = document.getElementById('modalGrid');
-        grid.innerHTML = '';
-        indices.forEach(i => {
-            const game = allGames[i];
-            const card = document.createElement('div');
-            card.className = 'modal-card';
-            card.innerHTML = '<img src="' + game.image + '" alt="' + game.title + '"><span>' + game.title + '</span>';
-            grid.appendChild(card);
-        });
-        document.getElementById('modalOverlay').classList.add('open');
-        document.getElementById('modal').classList.add('open');
-    }
-    function closeModal() {
-        document.getElementById('modalOverlay').classList.remove('open');
-        document.getElementById('modal').classList.remove('open');
-    }
-    document.getElementById('modalOverlay').addEventListener('click', closeModal);
 </script>
 
 </body>
