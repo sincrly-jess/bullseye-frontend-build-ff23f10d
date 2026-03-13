@@ -267,7 +267,7 @@ $collections = [
 <!-- SIDEBAR -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <aside class="sidebar" id="sidebar">
-    <a href="index.php?page=homepage">&#127968; Home</a>
+    <a href="?page=homepage">&#127968; Home</a>
     <button id="catToggle">&#9783; Categories <span id="catArrow" style="margin-left:auto;">&#9654;</span></button>
     <div class="sub-menu" id="catMenu" style="display:none;">
         <a href="#">Bullseye Games</a>
